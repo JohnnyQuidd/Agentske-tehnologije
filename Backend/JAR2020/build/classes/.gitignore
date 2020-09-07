@@ -1,4 +1,6 @@
+/META-INF/
+/agents/
 /beans/
+/dto/
 /model/
 /repository/
-/dto/
