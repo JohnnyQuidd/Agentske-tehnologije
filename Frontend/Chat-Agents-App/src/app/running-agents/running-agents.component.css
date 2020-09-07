@@ -1,0 +1,14 @@
+h3 {
+    margin: 10px auto 20px 35%;
+    
+}
+
+#runningAgents {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#stopAgent {
+    margin: 10px auto 10px 70%;
+    width: 20%;
+}

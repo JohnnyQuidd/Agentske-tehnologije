@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent component</title>
+</head>
+<body>
+    <div class="text-center">
+        <div class="performative-div">
+            <p>Performative: </p>
+            <select name="performative" id="performative" class="form-control">
+                <option value="ACCEPT">ACCEPT</option>
+                <option value="AGREE">AGREE</option>
+                <option value="REQUEST">REQUEST</option>
+            </select>
+        </div>
+        <div class="receiver-div">
+            <p>Receiver: </p>
+            <select name="receiver" id="receiver" class="form-control">
+                <option value=".">Agent 1</option>
+                <option value="..">Agent 2</option>
+                <option value="...">Agent 3</option>
+            </select>
+        </div>
+        <div class="content-div">
+            <p>Content: </p>
+            <input type="text" id="content" class="form-control" placeholder="Message content...">
+        </div>
+        <div class="sender-div">
+            <p>Sender: </p>
+            <select name="sender" id="sender" class="form-control">
+                <option value=".">Agent 1</option>
+                <option value="..">Agent 2</option>
+                <option value="...">Agent 3</option>
+            </select>
+        </div>
+        <button id="sendMessage" class="btn btn-primary">Send ACL Message</button>
+
+        <textarea name="details" id="details" cols="30" rows="10" class="form-control" readonly></textarea>
+        
+        <app-running-agents id="app-running-agents"></app-running-agents>
+
+    </div>
+</body>
+</html>

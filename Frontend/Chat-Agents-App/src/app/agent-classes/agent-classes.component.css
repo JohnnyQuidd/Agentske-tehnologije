@@ -1,0 +1,22 @@
+p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.agents {
+    width: 80%;
+    margin: 10px auto;
+}
+
+hr{
+    margin: 0;
+}
+
+button {
+    display: block;
+    margin: 5px auto;
+}
+
+.modal.show{
+    display: block;
+}

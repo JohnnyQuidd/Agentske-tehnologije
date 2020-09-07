@@ -3,8 +3,11 @@ package beans;
 import java.util.HashMap;
 import java.util.UUID;
 
+import javax.ejb.Stateless;
+
 import model.ACLMessage;
 
+@Stateless
 public class DBBean {
 	private HashMap<UUID, ACLMessage> aclMessages = new HashMap<>();
 	
