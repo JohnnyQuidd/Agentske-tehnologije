@@ -25,8 +25,14 @@ public class WSEndpoint {
 	}
 	
 	@OnMessage
-	public void EchoTextMessage(Session session, String message, boolean last) {
-		// Logika
+	public void echoTextMessage(String message) {
+		try {
+			for(Session session : sessions) {
+				session.getBasicRemote().sendText(message);
+			}
+		} catch(Exception e) {
+			System.out.println("Coulndn't send message: " + message);
+		}
 	}
 	
 	@OnClose

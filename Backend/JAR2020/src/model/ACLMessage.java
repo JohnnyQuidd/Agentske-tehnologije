@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class ACLMessage {
+public class ACLMessage implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Performative performative;
 	private AID sender;
 	private AID[] receivers;

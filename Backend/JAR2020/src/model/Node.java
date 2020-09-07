@@ -1,13 +1,13 @@
 package model;
 
-public class AgentCenter {
+public class Node {
 	private String alias;
 	private String address;
 	
-	public AgentCenter() {
+	public Node() {
 		super();
 	}
-	public AgentCenter(String alias, String address) {
+	public Node(String alias, String address) {
 		super();
 		this.alias = alias;
 		this.address = address;

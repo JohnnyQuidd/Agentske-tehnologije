@@ -2,14 +2,14 @@ package model;
 
 public class AID {
 	private String name;
-	private AgentCenter host;
+	private Node host;
 	private AgentType type;
 	
 	public AID() {
 		super();
 	}
 
-	public AID(String name, AgentCenter host, AgentType type) {
+	public AID(String name, Node host, AgentType type) {
 		super();
 		this.name = name;
 		this.host = host;
@@ -24,11 +24,11 @@ public class AID {
 		this.name = name;
 	}
 
-	public AgentCenter getHost() {
+	public Node getHost() {
 		return host;
 	}
 
-	public void setHost(AgentCenter host) {
+	public void setHost(Node host) {
 		this.host = host;
 	}
 
