@@ -20,3 +20,16 @@ button {
 .modal.show{
     display: block;
 }
+
+#agentClasses {
+    margin: 0 auto;
+}
+
+#agentName {
+    margin: 15px auto;
+}
+
+#startAgent {
+    width: 80%;
+    margin: 30px auto;
+}
