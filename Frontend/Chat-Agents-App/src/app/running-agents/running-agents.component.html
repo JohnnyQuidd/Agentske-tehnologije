@@ -9,12 +9,10 @@
 </head>
 <body>
         <h3>Running agents</h3>
-        <select name="running" id="runningAgents" class="form-control"> 
-            <option value="agent 1">Agent 1</option>
-            <option value="agent 1">Agent 1</option>
-            <option value="agent 1">Agent 1</option>
+        <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenAgent"> 
+            <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
         </select>
     
-        <button class="btn btn-danger" id="stopAgent"> Stop agent</button>
+        <button class="btn btn-danger" id="stopAgent" (click) = "stopAgent()"> Stop agent</button>
 </body>
 </html>

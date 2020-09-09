@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class RunningAgentsComponent implements OnInit {
 
   socket: WebSocket = new WebSocket('ws://localhost:8080/WAR2020/ws');
-  public agents : Agent[];
+  public agents : Set<Agent>;
   public chosenAgent : Agent = {
     name : "Agent",
     module : "111"
@@ -21,6 +21,7 @@ export class RunningAgentsComponent implements OnInit {
 
   constructor(private http : HttpClient) { 
     establishConnection(this.socket);
+    this.fetchRunningAgents();
     
   }
 
@@ -28,7 +29,29 @@ export class RunningAgentsComponent implements OnInit {
     
   }
 
+  async fetchRunningAgents() {
+    const endpoint = 'http://localhost:8080/WAR2020/rest/agents/running';
+  
+    this.http.get(endpoint).subscribe(response =>{
+      this.agents = response as Set<Agent>;
+    },err => {
+      console.log("Unable to fetch agent types");
+    });
+  
+  }
 
+  async stopAgent(){
+    let endpoint = 'http://localhost:8080/WAR2020/rest/agents/running/' + this.chosenAgent;
+
+    console.log(endpoint);
+
+    this.http.delete(endpoint,{responseType: 'text'}).subscribe(response => {
+      console.log(response);
+    },err => {
+      console.log(err);
+    });
+
+  }
   
 
 

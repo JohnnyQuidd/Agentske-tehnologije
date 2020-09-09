@@ -17,25 +17,21 @@
         </div>
         <div class="receiver-div">
             <p>Receiver: </p>
-            <select name="receiver" id="receiver" class="form-control">
-                <option value=".">Agent 1</option>
-                <option value="..">Agent 2</option>
-                <option value="...">Agent 3</option>
+            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenReciever"> 
+                <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
             </select>
         </div>
         <div class="content-div">
             <p>Content: </p>
-            <input type="text" id="content" class="form-control" placeholder="Message content...">
+            <input type="text" id="content" class="form-control" placeholder="Message content..." [(ngModel)] ="content">
         </div>
         <div class="sender-div">
             <p>Sender: </p>
-            <select name="sender" id="sender" class="form-control">
-                <option value=".">Agent 1</option>
-                <option value="..">Agent 2</option>
-                <option value="...">Agent 3</option>
+            <select name="agentClasses" id="sender" class="form-control" [(ngModel)]="chosenSender"> 
+                <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
             </select>
         </div>
-        <button id="sendMessage" class="btn btn-primary">Send ACL Message</button>
+        <button id="sendMessage" class="btn btn-primary" (click)="sendMessage()">Send ACL Message</button>
 
         <textarea name="details" id="details" cols="30" rows="10" class="form-control" readonly></textarea>
         

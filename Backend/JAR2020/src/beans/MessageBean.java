@@ -2,6 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,7 +24,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dto.ACLMessageDTO;
 import model.ACLMessage;
+import model.AID;
 import model.Performative;
 
 @Singleton
@@ -57,7 +60,19 @@ public class MessageBean {
 	}
 	
 	@POST
-	public Response postACLMessage(ACLMessage aclMessage) {
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response postACLMessage(ACLMessageDTO mssg) {
+		HashMap<String, AID> running = database.getAgentsRunning();
+		ACLMessage aclMessage = new ACLMessage();
+		AID reciever = database.getAgentsRunning().get(mssg.getReciever());
+		AID s = database.getAgentsRunning().get(mssg.getSender());
+		Performative performative = Performative.valueOf(mssg.getPerformative());
+		aclMessage.setContent(mssg.getContent());
+		AID recievers[] = {reciever};
+		aclMessage.setReceivers(recievers);
+		aclMessage.setSender(s);
+		aclMessage.setPerformative(performative);
+		
 		try {
 			QueueConnection connection = (QueueConnection) connectionFactory.createConnection("guest", "guest.guest.1");
 			QueueSession session = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);

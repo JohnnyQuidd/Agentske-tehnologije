@@ -9,11 +9,13 @@ import { HttpClient } from '@angular/common/http';
 export class AgentClassesComponent implements OnInit {
   socket: WebSocket = new WebSocket('ws://localhost:8080/WAR2020/ws');
   
-  public agents : Set<Agent>;
-  public chosenAgent : Agent = {
+  public agents : Set<AgentType>;
+  public chosenAgentType : AgentType = {
     name : "Agent",
     module : "111"
   };
+  public name : string;
+
   constructor(private http: HttpClient) { 
     this.fetchAgentTypes();
   }
@@ -25,16 +27,32 @@ export class AgentClassesComponent implements OnInit {
     const endpoint = 'http://localhost:8080/WAR2020/rest/agents/classes';
   
     this.http.get(endpoint).subscribe(response =>{
-      this.agents = response as Set<Agent>;
-      this.chosenAgent = this.agents[0];
+      this.agents = response as Set<AgentType>;
+      this.chosenAgentType = this.agents[0];
     },err => {
       console.log("Unable to fetch agent types");
     });
   
   }
 
+  async onSubmitNewAgent(){
+    let endpoint = "http://localhost:8080/WAR2020/rest/agents/running/" + this.chosenAgentType + "/" + this.name;
+
+    this.http.put(endpoint, null, {responseType: 'text'}).subscribe(response => {
+      console.log(response);
+    },err => {
+      console.log(err);
+    });
+
+    console.log("PAZI SE OVOGA"+endpoint);
+
+  }
+
+
 
 }
+
+
 
 
 async function  establishConnection(socket) {
@@ -53,8 +71,9 @@ async function  establishConnection(socket) {
   }
 }
 
-export interface Agent{
+export interface AgentType{
   name : string,
   module : string;
 };
+
 

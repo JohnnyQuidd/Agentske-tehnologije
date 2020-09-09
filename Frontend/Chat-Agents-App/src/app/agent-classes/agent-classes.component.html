@@ -11,11 +11,11 @@
     <div class="text-center">
         <p>Available agent classes</p>
         <div class="agents">
-            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenAgent"> 
-                <option *ngFor = "let agent of agents" value="{{agent.name}}">{{agent.name}}</option>
+            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenAgentType"> 
+                <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
             </select>
-            <input type="text" id="agentName" placeholder="Agent name" class="form-control">
-            <button id="startAgent" class="btn btn-primary"> Start a new agent</button>
+            <input type="text" id="agentName" placeholder="Agent name" class="form-control" [(ngModel)] = "name">
+            <button id="startAgent" class="btn btn-primary" (click) = "onSubmitNewAgent()"> Start a new agent</button>
         </div>
     </div>
     

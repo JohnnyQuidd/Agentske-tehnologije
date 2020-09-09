@@ -81,7 +81,7 @@ public class AgentsBean {
 		//check if that agent type exists
 		AgentType agentType = null;
 		for(AgentType at : database.getAgentTypes().values()) {
-			if(at.getName().equals(name)) {
+			if(at.getName().equals(type)) {
 				agentType = at;
 			}
 		}
