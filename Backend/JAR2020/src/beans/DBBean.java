@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 
 import model.ACLMessage;
 import model.AID;
-import model.Agent;
 import model.AgentType;
 
 @Stateless

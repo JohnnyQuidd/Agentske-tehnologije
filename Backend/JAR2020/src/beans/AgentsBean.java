@@ -1,7 +1,5 @@
 package beans;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Collection;
 
 import javax.ejb.EJB;
@@ -17,9 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.AID;
-import model.Node;
-import node.AgentCenter;
 import model.AgentType;
+import node.AgentCenter;
 import ws.WSEndpoint;
 
 @Stateless
@@ -49,8 +46,7 @@ public class AgentsBean {
 	@GET
 	@Path("/classes")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAgentTypes() {
-		
+	public Response getAgentTypes() {		
 		Collection<AgentType> agentTypes = database.getAgentTypes().values();
 		if(agentTypes.isEmpty()) {
 			return Response.status(404).entity("No agent types found").build();
