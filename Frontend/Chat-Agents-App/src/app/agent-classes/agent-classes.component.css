@@ -3,7 +3,7 @@ p {
     font-weight: 600;
 }
 
-.agents {
+.agentClasses {
     width: 80%;
     margin: 10px auto;
 }
@@ -22,10 +22,12 @@ button {
 }
 
 #agentClasses {
+    width: 90%;
     margin: 0 auto;
 }
 
 #agentName {
+    width: 90%;
     margin: 15px auto;
 }
 

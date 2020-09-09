@@ -7,7 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response;
 import model.ACLMessage;
 import model.Performative;
 
-@Stateless
+@Singleton
 @Path("/messages")
 @LocalBean
 public class MessageBean {

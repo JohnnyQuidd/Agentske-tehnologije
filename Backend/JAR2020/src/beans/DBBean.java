@@ -3,13 +3,13 @@ package beans;
 import java.util.HashMap;
 import java.util.UUID;
 
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 import model.ACLMessage;
 import model.AID;
 import model.AgentType;
 
-@Stateless
+@Singleton
 public class DBBean {
 	private HashMap<UUID, ACLMessage> aclMessages = new HashMap<>();
 	
@@ -18,7 +18,15 @@ public class DBBean {
 	private HashMap<String, AID> agentsRunning = new HashMap<>();
 	
 	public DBBean() {
-		super();
+		AgentType type1 = new AgentType("Ping", "1270.0.1");
+		AgentType type2 = new AgentType("Pong", "1270.0.1");
+		AgentType type3 = new AgentType("CNPContractor", "1270.0.1");
+		AgentType type4 = new AgentType("CNPManager", "1270.0.1");
+		
+		agentTypes.put(type1.getName(), type1);
+		agentTypes.put(type2.getName(), type2);
+		agentTypes.put(type3.getName(), type3);
+		agentTypes.put(type4.getName(), type4);
 	}
 	
 	

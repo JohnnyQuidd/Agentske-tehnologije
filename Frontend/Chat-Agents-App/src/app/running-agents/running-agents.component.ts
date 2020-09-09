@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -8,16 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RunningAgentsComponent implements OnInit {
 
-  socket: WebSocket = new WebSocket('ws://localhost:8080/WAR2020/ws');;
+  socket: WebSocket = new WebSocket('ws://localhost:8080/WAR2020/ws');
+  public agents : Agent[];
+  public chosenAgent : Agent = {
+    name : "Agent",
+    module : "111"
+  };
 
-  constructor() { 
+
+  constructor(private http : HttpClient) { 
     establishConnection(this.socket);
+    
   }
 
   ngOnInit(): void {
+    
   }
 
+
+  
+
+
 }
+
 
 
 async function  establishConnection(socket) {
@@ -34,4 +50,10 @@ async function  establishConnection(socket) {
     console.log("WS closed")
     socket = null;
   }
+}
+
+export interface Agent{
+  name : string,
+  module : string;
+
 }

@@ -11,12 +11,8 @@
     <div class="text-center">
         <p>Available agent classes</p>
         <div class="agents">
-            <select name="agentClasses" id="agentClasses" class="form-control">
-                <option value="AGENT1">Agent 1</option>
-                <option value="AGENT2">Agent 2</option>
-                <option value="AGENT3">Agent 3</option>
-                <option value="AGENT4">Agent 4</option>
-                <option value="AGENT5">Agent 5</option>
+            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenAgent"> 
+                <option *ngFor = "let agent of agents" value="{{agent.name}}">{{agent.name}}</option>
             </select>
             <input type="text" id="agentName" placeholder="Agent name" class="form-control">
             <button id="startAgent" class="btn btn-primary"> Start a new agent</button>

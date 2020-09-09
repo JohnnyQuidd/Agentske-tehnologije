@@ -11,10 +11,8 @@
     <div class="text-center">
         <div class="performative-div">
             <p>Performative: </p>
-            <select name="performative" id="performative" class="form-control">
-                <option value="ACCEPT">ACCEPT</option>
-                <option value="AGREE">AGREE</option>
-                <option value="REQUEST">REQUEST</option>
+            <select name="performative" id="performative" class="form-control" [(ngModel)]="chosenPerformative">
+                <option *ngFor="let performative of performatives" value="{{performative}}">{{performative}}</option>
             </select>
         </div>
         <div class="receiver-div">
