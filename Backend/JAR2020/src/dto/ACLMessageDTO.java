@@ -1,8 +1,11 @@
 package dto;
 
-public class ACLMessageDTO {
+import java.io.Serializable;
+
+public class ACLMessageDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String performative;
-	private String reciever;
+	private String receiver;
 	private String content;
 	private String sender;
 	
@@ -12,10 +15,10 @@ public class ACLMessageDTO {
 		super();
 	}
 
-	public ACLMessageDTO(String performative, String reciever, String content, String sender) {
+	public ACLMessageDTO(String performative, String receiver, String content, String sender) {
 		super();
 		this.performative = performative;
-		this.reciever = reciever;
+		this.receiver = receiver;
 		this.content = content;
 		this.sender = sender;
 	}
@@ -27,10 +30,10 @@ public class ACLMessageDTO {
 		this.performative = performative;
 	}
 	public String getReciever() {
-		return reciever;
+		return receiver;
 	}
 	public void setReciever(String reciever) {
-		this.reciever = reciever;
+		this.receiver = reciever;
 	}
 	public String getContent() {
 		return content;

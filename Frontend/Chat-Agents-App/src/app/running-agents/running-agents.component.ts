@@ -20,7 +20,7 @@ export class RunningAgentsComponent implements OnInit {
 
 
   constructor(private http : HttpClient) { 
-    establishConnection(this.socket);
+    this.establishConnection(this.socket);
     this.fetchRunningAgents();
     
   }
@@ -52,6 +52,22 @@ export class RunningAgentsComponent implements OnInit {
     });
 
   }
+
+  async establishConnection(socket) {
+
+    socket.onopen = (evt) => {
+      //TODO    
+    }
+  
+    socket.onmessage = msg => {
+      this.fetchRunningAgents();
+    }
+  
+    socket.onclose = function () {
+      // TODO
+      socket = null;
+    }
+  }
   
 
 
@@ -59,21 +75,7 @@ export class RunningAgentsComponent implements OnInit {
 
 
 
-async function  establishConnection(socket) {
 
-  socket.onopen = (evt) => {
-    console.log('onopen: Socket Status: ' + socket.readyState + ' (open)');
-  }
-
-  socket.onmessage = msg => {
-    console.log('Received a message: ' + msg.data);
-  }
-
-  socket.onclose = function () {
-    console.log("WS closed")
-    socket = null;
-  }
-}
 
 export interface Agent{
   name : string,

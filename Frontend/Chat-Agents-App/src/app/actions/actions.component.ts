@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./actions.component.css']
 })
 export class ActionsComponent implements OnInit {
+  public messages = "";
+  socket: WebSocket = new WebSocket('ws://localhost:8080/WAR2020/ws');
   public performatives : Set<Performative>;
   public chosenPerformative : Performative = {
     performative: 'Performative'
@@ -17,12 +19,12 @@ export class ActionsComponent implements OnInit {
   public content : string;
   public message : ACLMessage = {
     performative : "",
-    reciever : "" ,
+    receiver : "" ,
     content : "",
     sender : ""
   };
 
-  public chosenReciever : Agent ={
+  public chosenReceiver : Agent ={
     name : "temp",
     module : "temp"
   };
@@ -33,6 +35,7 @@ export class ActionsComponent implements OnInit {
   };
 
   constructor(private http: HttpClient) { 
+    this.establishConnection(this.socket);
     this.fetchPerformatives();
     this.fetchRunningAgents();
   }
@@ -45,7 +48,6 @@ export class ActionsComponent implements OnInit {
 
     this.http.get(apiEndpoint).subscribe(response => {
       this.performatives = response as Set<Performative>;
-      console.log(this.performatives);
     });
   }
 
@@ -64,18 +66,44 @@ export class ActionsComponent implements OnInit {
     let endpoint = 'http://localhost:8080/WAR2020/rest/messages';
 
     this.message.content = this.content;
-    this.message.reciever =  this.chosenReciever as string;
-    this.message.sender = this.chosenSender as string;
-    this.message.performative = this.chosenPerformative as string;
-
-    this.http.post(endpoint,this.message,{responseType : "text"}).subscribe(response => {
+    this.message.receiver =  this.chosenReceiver.name;
+    this.message.sender = this.chosenSender.name;
+    this.message.performative = this.chosenPerformative.performative;
+    let payload = JSON.stringify(this.message);
+    
+    //let header = new HttpHeaders();
+    //let headers= header.append('content-type', 'application/json');
+    console.log(payload);
+    this.http.post(endpoint, payload, {responseType: 'text'}).subscribe(response => {
       console.log(response);
     },err => {
       console.log(err); 
-    })
+    });
 
   }
 
+  async establishConnection(socket) {
+
+    socket.onopen = (evt) => {
+      // TODO
+    }
+  
+    socket.onmessage = msg => {
+      console.log(msg.data);
+      this.appendField(msg.data);
+      this.fetchRunningAgents();
+
+    }
+  
+    socket.onclose = function () {
+      // TODO
+      socket = null;
+    }
+  }
+
+  async appendField(string : string) {
+    this.messages += string += '\n';
+  }
 
 }
 
@@ -93,7 +121,7 @@ export interface Agent{
 
 export interface ACLMessage {
   performative : string;
-  reciever : string;
+  receiver : string;
   content : string;
   sender : string;
 }

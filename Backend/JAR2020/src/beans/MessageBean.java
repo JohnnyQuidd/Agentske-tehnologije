@@ -2,13 +2,12 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -17,6 +16,7 @@ import javax.jms.QueueConnection;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,7 +29,7 @@ import model.ACLMessage;
 import model.AID;
 import model.Performative;
 
-@Singleton
+@Stateless
 @Path("/messages")
 @LocalBean
 public class MessageBean {
@@ -41,6 +41,8 @@ public class MessageBean {
 	
 	@Resource(mappedName = "java:jboss/exported/jms/queue/mojQueue")
 	Queue queue;
+	
+	public MessageBean() {}
 	
 	@GET
 	public Collection<ACLMessage> getAllMessages() {
@@ -60,9 +62,9 @@ public class MessageBean {
 	}
 	
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response postACLMessage(ACLMessageDTO mssg) {
-		HashMap<String, AID> running = database.getAgentsRunning();
 		ACLMessage aclMessage = new ACLMessage();
 		AID reciever = database.getAgentsRunning().get(mssg.getReciever());
 		AID s = database.getAgentsRunning().get(mssg.getSender());
@@ -85,6 +87,6 @@ public class MessageBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return Response.status(200).entity("OK").build();
+		return Response.status(500).entity("Unable to send message to queue").build();
 	}
 }

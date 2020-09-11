@@ -62,9 +62,6 @@ public class AgentsBean {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getRunningAgents() {
 		Collection<AID> runningAgents = database.getAgentsRunning().values();
-		if(runningAgents.isEmpty()) {
-			return Response.status(404).entity("No running agents").build();
-		}
 		
 		return Response.status(200).entity(runningAgents).build();
 	}
@@ -94,7 +91,7 @@ public class AgentsBean {
 		database.getAgentsRunning().put(name, newAID);
 		ws.echoTextMessage("New agent started: " + newAID.getName());
 	
-		return Response.status(201).entity("Agent created").build();
+		return Response.status(201).entity("Agent " + name +" created: ").build();
 	}
 	
 	@DELETE
@@ -103,7 +100,7 @@ public class AgentsBean {
 		for(AID agent : database.getAgentsRunning().values()) {
 			if(agent.getName().equals(aid)) {
 				database.getAgentsRunning().remove(agent.getName());
-				ws.echoTextMessage("Agent stopped: " + aid);
+				ws.echoTextMessage("Agent " + aid + " stopped");
 				return Response.status(203).entity("Agent stopped").build();
 			}
 		}

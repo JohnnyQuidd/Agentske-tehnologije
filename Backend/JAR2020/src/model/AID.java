@@ -11,7 +11,13 @@ public class AID implements Serializable{
 	public AID() {
 		super();
 	}
-
+	
+	public AID(String name) {
+		this.name = name;
+		this.host = new Node();
+		this.type = new AgentType();
+	}
+	
 	public AID(String name, Node host, AgentType type) {
 		super();
 		this.name = name;

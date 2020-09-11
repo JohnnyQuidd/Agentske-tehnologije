@@ -11,7 +11,7 @@
     <div class="text-center">
         <p>Available agent classes</p>
         <div class="agents">
-            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenAgentType"> 
+            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenAgentType.name"> 
                 <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
             </select>
             <input type="text" id="agentName" placeholder="Agent name" class="form-control" [(ngModel)] = "name">

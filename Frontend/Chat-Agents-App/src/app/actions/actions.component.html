@@ -11,13 +11,13 @@
     <div class="text-center">
         <div class="performative-div">
             <p>Performative: </p>
-            <select name="performative" id="performative" class="form-control" [(ngModel)]="chosenPerformative">
+            <select name="performative" id="performative" class="form-control" [(ngModel)]="chosenPerformative.performative">
                 <option *ngFor="let performative of performatives" value="{{performative}}">{{performative}}</option>
             </select>
         </div>
         <div class="receiver-div">
             <p>Receiver: </p>
-            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenReciever"> 
+            <select name="agentClasses" id="agentClasses" class="form-control" [(ngModel)]="chosenReceiver.name"> 
                 <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
             </select>
         </div>
@@ -27,13 +27,13 @@
         </div>
         <div class="sender-div">
             <p>Sender: </p>
-            <select name="agentClasses" id="sender" class="form-control" [(ngModel)]="chosenSender"> 
+            <select name="agentClasses" id="sender" class="form-control" [(ngModel)]="chosenSender.name"> 
                 <option *ngFor = "let agent of agents" [value]="agent.name">{{agent.name}}</option>
             </select>
         </div>
         <button id="sendMessage" class="btn btn-primary" (click)="sendMessage()">Send ACL Message</button>
 
-        <textarea name="details" id="details" cols="30" rows="10" class="form-control" readonly></textarea>
+        <textarea name="details" id="details" cols="30" rows="10" class="form-control" [ngModel]="messages" readonly></textarea>
         
         <app-running-agents id="app-running-agents"></app-running-agents>
 

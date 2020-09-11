@@ -36,15 +36,13 @@ export class AgentClassesComponent implements OnInit {
   }
 
   async onSubmitNewAgent(){
-    let endpoint = "http://localhost:8080/WAR2020/rest/agents/running/" + this.chosenAgentType + "/" + this.name;
+    let endpoint = "http://localhost:8080/WAR2020/rest/agents/running/" + this.chosenAgentType.name + "/" + this.name;
 
     this.http.put(endpoint, null, {responseType: 'text'}).subscribe(response => {
-      console.log(response);
+      //console.log(response);
     },err => {
       console.log(err);
     });
-
-    console.log("PAZI SE OVOGA"+endpoint);
 
   }
 
@@ -58,15 +56,15 @@ export class AgentClassesComponent implements OnInit {
 async function  establishConnection(socket) {
 
   socket.onopen = (evt) => {
-    console.log('onopen: Socket Status: ' + socket.readyState + ' (open)');
+    //TODO
   }
 
   socket.onmessage = msg => {
-    console.log('Received a message: ' + msg.data);
+    //TODO
   }
 
   socket.onclose = function () {
-    console.log("WS closed")
+    //TODO
     socket = null;
   }
 }
