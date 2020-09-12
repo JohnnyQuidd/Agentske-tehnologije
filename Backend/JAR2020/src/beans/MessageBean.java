@@ -27,6 +27,7 @@ import javax.ws.rs.core.Response;
 import dto.ACLMessageDTO;
 import model.ACLMessage;
 import model.AID;
+import model.Agent;
 import model.Performative;
 
 @Stateless
@@ -66,13 +67,13 @@ public class MessageBean {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response postACLMessage(ACLMessageDTO mssg) {
 		ACLMessage aclMessage = new ACLMessage();
-		AID reciever = database.getAgentsRunning().get(mssg.getReciever());
-		AID s = database.getAgentsRunning().get(mssg.getSender());
+		Agent reciever = database.getAgentsRunning().get(mssg.getReceiver());
+		Agent s = database.getAgentsRunning().get(mssg.getSender());
 		Performative performative = Performative.valueOf(mssg.getPerformative());
 		aclMessage.setContent(mssg.getContent());
-		AID recievers[] = {reciever};
+		AID recievers[] = {reciever.getAid()};
 		aclMessage.setReceivers(recievers);
-		aclMessage.setSender(s);
+		aclMessage.setSender(s.getAid());
 		aclMessage.setPerformative(performative);
 		
 		try {
@@ -84,7 +85,7 @@ public class MessageBean {
 			
 			return Response.status(201).entity("Message sent").build();
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Failed to send JMS message to queue");
 			e.printStackTrace();
 		}
 		return Response.status(500).entity("Unable to send message to queue").build();

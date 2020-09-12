@@ -16,6 +16,7 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/ws")
 @LocalBean
 public class WSEndpoint {
+	public static String LOOKUP = "java:app/WAR2020/WSEndpoint!ws.WSEndpoint";
 	static List<Session> sessions = new ArrayList<>();
 	
 	@OnOpen

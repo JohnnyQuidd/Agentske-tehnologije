@@ -3,19 +3,22 @@ package beans;
 import java.util.HashMap;
 import java.util.UUID;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 
 import model.ACLMessage;
-import model.AID;
+import model.Agent;
 import model.AgentType;
 
 @Singleton
+@LocalBean
 public class DBBean {
+	public static String LOOKUP = "java:app/JAR2020/DBBean!beans.DBBean";
 	private HashMap<UUID, ACLMessage> aclMessages = new HashMap<>();
 	
 	//agent
 	private HashMap<String, AgentType> agentTypes = new HashMap<>();
-	private HashMap<String, AID> agentsRunning = new HashMap<>();
+	private HashMap<String, Agent> agentsRunning = new HashMap<>();
 	
 	public DBBean() {
 		AgentType type1 = new AgentType("Ping", "1270.0.1");
@@ -31,13 +34,13 @@ public class DBBean {
 	
 	
 
-	public HashMap<String, AID> getAgentsRunning() {
+	public HashMap<String, Agent> getAgentsRunning() {
 		return agentsRunning;
 	}
 
 
 
-	public void setAgentsRunning(HashMap<String, AID> agentsRunning) {
+	public void setAgentsRunning(HashMap<String, Agent> agentsRunning) {
 		this.agentsRunning = agentsRunning;
 	}
 
@@ -62,6 +65,7 @@ public class DBBean {
 	public void setAclMessages(HashMap<UUID, ACLMessage> aclMessages) {
 		this.aclMessages = aclMessages;
 	}
+	
 	
 	
 }

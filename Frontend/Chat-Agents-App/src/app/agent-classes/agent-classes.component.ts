@@ -28,7 +28,6 @@ export class AgentClassesComponent implements OnInit {
   
     this.http.get(endpoint).subscribe(response =>{
       this.agents = response as Set<AgentType>;
-      this.chosenAgentType = this.agents[0];
     },err => {
       console.log("Unable to fetch agent types");
     });

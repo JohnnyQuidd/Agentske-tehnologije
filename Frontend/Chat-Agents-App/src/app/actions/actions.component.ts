@@ -71,10 +71,9 @@ export class ActionsComponent implements OnInit {
     this.message.performative = this.chosenPerformative.performative;
     let payload = JSON.stringify(this.message);
     
-    //let header = new HttpHeaders();
-    //let headers= header.append('content-type', 'application/json');
-    console.log(payload);
-    this.http.post(endpoint, payload, {responseType: 'text'}).subscribe(response => {
+    let header = new HttpHeaders();
+    let hdrs= header.append('content-type', 'application/json');
+    this.http.post(endpoint, payload, {responseType: 'text', headers: hdrs}).subscribe(response => {
       console.log(response);
     },err => {
       console.log(err); 

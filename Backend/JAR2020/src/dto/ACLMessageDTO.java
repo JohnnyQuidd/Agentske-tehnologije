@@ -29,10 +29,10 @@ public class ACLMessageDTO implements Serializable{
 	public void setPerformative(String performative) {
 		this.performative = performative;
 	}
-	public String getReciever() {
+	public String getReceiver() {
 		return receiver;
 	}
-	public void setReciever(String reciever) {
+	public void setReceiver(String reciever) {
 		this.receiver = reciever;
 	}
 	public String getContent() {

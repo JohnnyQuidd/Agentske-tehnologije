@@ -1,6 +1,10 @@
 package model;
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable{
+	public static String LOOKUP = "java:app/JAR2020/Node!model.Node";
+	private static final long serialVersionUID = 1L;
 	private String alias;
 	private String address;
 	

@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.EJB;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.AID;
+import model.Agent;
 import model.AgentType;
 import node.AgentCenter;
 import ws.WSEndpoint;
@@ -61,17 +63,21 @@ public class AgentsBean {
 	@Path("/running")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getRunningAgents() {
-		Collection<AID> runningAgents = database.getAgentsRunning().values();
+		Collection<Agent> runningAgents = database.getAgentsRunning().values();
+		Collection<AID> aids = new ArrayList<>();
 		
-		return Response.status(200).entity(runningAgents).build();
+		for(Agent agent : runningAgents)
+			aids.add(agent.getAid());
+		
+		return Response.status(200).entity(aids).build();
 	}
 	
 	@PUT
 	@Path("/running/{type}/{name}")
-	public Response startAgent(@PathParam("type")String type,@PathParam("name")String name){
+	public Response startAgent(@PathParam("type") String type,@PathParam("name") String name){
 		//check if agent with that name already exists
-		for(AID a : database.getAgentsRunning().values()) {
-			if(a.getName().equals(name)) {
+		for(Agent a : database.getAgentsRunning().values()) {
+			if(a.getAid().getName().equals(name)) {
 				return Response.status(403).entity("Agent with that name already exists").build();
 			}
 		}
@@ -88,18 +94,34 @@ public class AgentsBean {
 		
 		AID newAID = new AID(name, agentCenter.getCurrentNode(), agentType);
 		
-		database.getAgentsRunning().put(name, newAID);
-		ws.echoTextMessage("New agent started: " + newAID.getName());
-	
-		return Response.status(201).entity("Agent " + name +" created: ").build();
+		Object obj;
+		try {
+			obj = Class.forName("agents." + agentType.getName() + "Agent").newInstance();
+			if (obj instanceof Agent) {
+				((Agent) obj).setAid(newAID);
+				Agent newAgent = (Agent) obj;
+				database.getAgentsRunning().put(name, newAgent);
+				
+				ws.echoTextMessage("New agent started: " + newAgent.getAid().getName());
+				return Response.status(201).entity("Agent " + name +" created: ").build();
+			} else {
+				System.out.println("Type " + type + " cannot be added!");
+				
+			}
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		return Response.status(500).entity("Agent cannot be added").build();
 	}
 	
 	@DELETE
 	@Path("/running/{aid}")
 	public Response stopAgent(@PathParam("aid") String aid) {
-		for(AID agent : database.getAgentsRunning().values()) {
-			if(agent.getName().equals(aid)) {
-				database.getAgentsRunning().remove(agent.getName());
+		for(Agent agent : database.getAgentsRunning().values()) {
+			if(agent.getAid().getName().equals(aid)) {
+				database.getAgentsRunning().remove(agent.getAid().getName());
 				ws.echoTextMessage("Agent " + aid + " stopped");
 				return Response.status(203).entity("Agent stopped").build();
 			}
