@@ -27,8 +27,8 @@ public class DBBean {
 		this.agentTypes = new HashMap<String,AgentType>();
 		this.agentsRunning = new HashMap<String,Agent>();
 		
-		AgentType type1 = new AgentType("Ping", "1270.0.1");
-		AgentType type2 = new AgentType("Pong", "1270.0.1");
+		AgentType type1 = new AgentType("PingAgent", "1270.0.1");
+		AgentType type2 = new AgentType("PongAgent", "1270.0.1");
 		AgentType type3 = new AgentType("CNPContractorAgent", "1270.0.1");
 		AgentType type4 = new AgentType("CNPManagerAgent", "1270.0.1");
 		
