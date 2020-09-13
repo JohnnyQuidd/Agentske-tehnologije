@@ -59,7 +59,7 @@ public class CNPManagerAgent extends Agent{
 			try {
 				Context context = new InitialContext();
 				WSEndpoint ws = (WSEndpoint) context.lookup(WSEndpoint.LOOKUP);
-				ws.echoTextMessage(aid.getName() +  " -  is accepting to comunicate.");
+				ws.echoTextMessage(aid.getName() +  " -  accepted communication");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -92,7 +92,7 @@ public class CNPManagerAgent extends Agent{
 				try {
 					Context context = new InitialContext();
 					WSEndpoint ws = (WSEndpoint) context.lookup(WSEndpoint.LOOKUP);
-					ws.echoTextMessage(aid.getName() + " - work failed, sending information to contractor.");
+					ws.echoTextMessage(aid.getName() + " - work failed (randomly)");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}

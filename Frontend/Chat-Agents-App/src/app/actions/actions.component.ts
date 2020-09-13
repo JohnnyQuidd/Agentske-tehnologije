@@ -81,6 +81,10 @@ export class ActionsComponent implements OnInit {
 
   }
 
+  async clearMessages() {
+      this.messages = "";
+  }
+
   async establishConnection(socket) {
 
     socket.onopen = (evt) => {

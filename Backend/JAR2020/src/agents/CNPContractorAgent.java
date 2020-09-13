@@ -2,8 +2,6 @@ package agents;
 
 import java.util.ArrayList;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -129,7 +127,7 @@ public class CNPContractorAgent extends Agent{
 		try {
 			Context context = new InitialContext();
 			WSEndpoint ws = (WSEndpoint) context.lookup(WSEndpoint.LOOKUP);
-			ws.echoTextMessage(aid.getName() +  " - Inform message from " + msg.getSender().getName() + ": " + msg.getContent());
+			ws.echoTextMessage(aid.getName() +  " - Received inform message from " + msg.getSender().getName());
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

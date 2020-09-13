@@ -34,6 +34,8 @@
         <button id="sendMessage" class="btn btn-primary" (click)="sendMessage()">Send ACL Message</button>
 
         <textarea name="details" id="details" cols="30" rows="10" class="form-control" [ngModel]="messages" readonly></textarea>
+
+        <button class="btn btn-light" id="clearMessages" (click)="clearMessages()"> Clear messages</button>
         
         <app-running-agents id="app-running-agents"></app-running-agents>
 

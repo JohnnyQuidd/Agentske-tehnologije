@@ -27,7 +27,9 @@ public class BroadcastMessagesBean implements MessageListener{
 		try {
 			ACLMessage message = (ACLMessage) ((ObjectMessage) jmsMessage).getObject();
 			AID[] receivers = message.getReceivers();
-			ws.echoTextMessage(message.getSender().getName() + ": " + message.getContent());
+			if(message.getContent() != null) {
+				ws.echoTextMessage(message.getSender().getName() + ": " + message.getContent());
+			}
 			
 			for(AID aid : receivers) {
 				Agent agent = database.getAgentsRunning().get(aid.getName());
