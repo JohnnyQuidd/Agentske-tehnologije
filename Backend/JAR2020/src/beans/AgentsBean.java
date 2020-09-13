@@ -96,7 +96,7 @@ public class AgentsBean {
 		
 		Object obj;
 		try {
-			obj = Class.forName("agents." + agentType.getName() + "Agent").newInstance();
+			obj = Class.forName("agents." + agentType.getName()).newInstance();
 			if (obj instanceof Agent) {
 				((Agent) obj).setAid(newAID);
 				Agent newAgent = (Agent) obj;

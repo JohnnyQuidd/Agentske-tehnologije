@@ -71,6 +71,7 @@ public class CNPContractorAgent extends Agent{
 		try {
 			Context ctx = new InitialContext();
 			DBBean database = (DBBean) ctx.lookup(DBBean.LOOKUP);
+			
 			ArrayList<AID> retVal = new ArrayList<>();
 			for (Agent agent : database.getAgentsRunning().values()) {
 				if (agent.getAid().getType().getName().contains("CNPManagerAgent")) {

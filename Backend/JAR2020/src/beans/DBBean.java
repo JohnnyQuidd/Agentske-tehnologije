@@ -11,20 +11,26 @@ import model.Agent;
 import model.AgentType;
 
 @Singleton
-@LocalBean
 public class DBBean {
 	public static String LOOKUP = "java:app/JAR2020/DBBean!beans.DBBean";
+	
 	private HashMap<UUID, ACLMessage> aclMessages = new HashMap<>();
 	
 	//agent
-	private HashMap<String, AgentType> agentTypes = new HashMap<>();
-	private HashMap<String, Agent> agentsRunning = new HashMap<>();
+	private HashMap<String, AgentType> agentTypes;
+	private HashMap<String, Agent> agentsRunning;
 	
 	public DBBean() {
+		
+		//System.out.println("INSTANCIRANA BAZA");
+		
+		this.agentTypes = new HashMap<String,AgentType>();
+		this.agentsRunning = new HashMap<String,Agent>();
+		
 		AgentType type1 = new AgentType("Ping", "1270.0.1");
 		AgentType type2 = new AgentType("Pong", "1270.0.1");
-		AgentType type3 = new AgentType("CNPContractor", "1270.0.1");
-		AgentType type4 = new AgentType("CNPManager", "1270.0.1");
+		AgentType type3 = new AgentType("CNPContractorAgent", "1270.0.1");
+		AgentType type4 = new AgentType("CNPManagerAgent", "1270.0.1");
 		
 		agentTypes.put(type1.getName(), type1);
 		agentTypes.put(type2.getName(), type2);
